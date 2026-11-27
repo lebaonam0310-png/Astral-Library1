@@ -1,3 +1,6 @@
+-- ==========================================
+-- CHẠY TRỰC TIẾP (KHÔNG CẦN GITHUB)
+-- ==========================================
 local Fluent = {}
 local Players = game:GetService("Players")
 local TweenService = game:GetService("TweenService")
@@ -29,7 +32,6 @@ function Fluent:CreateWindow(title)
     create("UICorner", {CornerRadius = UDim.new(0, 10), Parent = main})
     create("UIStroke", {Color = Color3.fromRGB(40, 40, 45), Thickness = 1, Parent = main})
 
-    -- Kéo thả
     local dragging, dragInput, dragStart, startPos
     local titleBar = create("Frame", {Size = UDim2.new(1, 0, 0, 40), BackgroundTransparency = 1, Parent = main})
     titleBar.InputBegan:Connect(function(input)
@@ -47,12 +49,10 @@ function Fluent:CreateWindow(title)
         end
     end)
 
-    -- Tiêu đề & Close
     create("TextLabel", {Size = UDim2.new(1, -40, 1, 0), Position = UDim2.new(0, 20, 0, 0), BackgroundTransparency = 1, Text = title, RichText = true, TextColor3 = self.Theme.Text, Font = Enum.Font.GothamBold, TextSize = 15, TextXAlignment = Enum.TextXAlignment.Left, Parent = titleBar})
     local closeBtn = create("TextButton", {Size = UDim2.new(0, 40, 1, 0), Position = UDim2.new(1, -45, 0, 0), BackgroundTransparency = 1, Text = "×", TextColor3 = Color3.fromRGB(255, 255, 255), Font = Enum.Font.Gotham, TextSize = 40, Parent = titleBar})
     closeBtn.MouseButton1Click:Connect(function() gui:Destroy() end)
 
-    -- Body & Sidebar
     local body = create("Frame", {Size = UDim2.new(1, 0, 1, -40), Position = UDim2.new(0, 0, 0, 40), BackgroundTransparency = 1, Parent = main})
     local sidebar = create("Frame", {Size = UDim2.new(0, 180, 1, -20), Position = UDim2.new(0, 15, 0, 10), BackgroundTransparency = 1, Parent = body})
     local tabContainer = create("Frame", {Size = UDim2.new(1, 0, 1, 0), BackgroundTransparency = 1, Parent = sidebar})
@@ -151,4 +151,18 @@ function Fluent:CreateWindow(title)
     end
     return Window
 end
-return Fluent
+
+-- ==========================================
+-- SCRIPT TEST (Nằm ngay dưới Library)
+-- ==========================================
+local Window = Fluent:CreateWindow("My Hub <font color='#888888'>by You</font>")
+local Tab = Window:AddTab("Main", "rbxassetid://6031075931")
+local Section = Tab:AddSection("Combat Features")
+
+Section:AddButton("Bấm thử nút này", function()
+    print("Đã bấm nút thành công!")
+end)
+
+Section:AddToggle("Auto Parry", false, function(state)
+    print("Auto Parry:", state)
+end)
